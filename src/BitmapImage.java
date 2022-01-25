@@ -117,18 +117,29 @@ public class BitmapImage {
 
     }
 
-    public void fillTriangle(Pixel k ,Pixel p ) throws IOException {
-        double x1 = k.y;
-        double y = k.x;
-        double x2 = p.y;
+    public void fillTriangle(Pixel k ,Pixel p, RGB rgb ) {
+        double x1 = k.x;
+        double y = p.y;
+        double x2 = p.x;
 
-        RGB zielony = new RGB(0, 128, 0);
-
-        while(x1<x2){
-            drawLine(new Pixel(x1,y),new Pixel(x2,y), zielony);
+        while (x1 < x2) {
+            drawLine(new Pixel(x1, y), new Pixel(x2, y), rgb);
             x1++;
             x2--;
             y--;
+        }
+    }
+
+    public void fillDownTriangle(Pixel k ,Pixel p, RGB rgb ){
+        double x1 = k.x;
+        double y = p.y;
+        double x2 = p.x;
+
+        while(x1<x2){
+            drawLine(new Pixel(x1, y), new Pixel(x2, y), rgb);
+            x1++;
+            x2--;
+            y++;
         }
     }
 
@@ -273,17 +284,21 @@ public class BitmapImage {
         // Zasadnicza
         b.drawRectangle(new Pixel(0, 0), new Pixel(599, 799), bialy);
         b.fillRectangle(new Pixel(0, 0), new Pixel(600, 800), bialy);
-        b.drawTriangle(new Pixel(150, 225), new Pixel(300, 225), new Pixel(225, 150), zielony);
-        b.fillTriangle(new Pixel(150, 225), new Pixel(300, 225));
-        b.drawTriangle(new Pixel(150, 300), new Pixel(300, 300), new Pixel(225, 225), zielony);
-        b.drawTriangle(new Pixel(150, 375), new Pixel(300, 375), new Pixel(225, 300), zielony);
+//        b.drawTriangle(new Pixel(150, 225), new Pixel(300, 225), new Pixel(225, 150), zielony);
+        b.fillTriangle(new Pixel(150, 225), new Pixel(300, 225), zielony);
+//        b.drawTriangle(new Pixel(150, 300), new Pixel(300, 300), new Pixel(225, 225), zielony);
+        b.fillTriangle(new Pixel(150, 300), new Pixel(300, 300), zielony);
+//        b.drawTriangle(new Pixel(150, 375), new Pixel(300, 375), new Pixel(225, 300), zielony);
+        b.fillTriangle(new Pixel(150, 375), new Pixel(300, 375), zielony);
 
         // Pien
         b.fillRectangle(new Pixel(210, 375), new Pixel(240, 420), brazowy);
 
         // Gwiazda
-        b.drawTriangle(new Pixel(200, 120), new Pixel(250, 120), new Pixel(225, 150), zloty);
-        b.drawTriangle(new Pixel(200, 140), new Pixel(250, 140), new Pixel(225, 110), zloty);
+//        b.drawTriangle(new Pixel(200, 120), new Pixel(250, 120), new Pixel(225, 150), zloty);
+        b.fillDownTriangle(new Pixel(200, 120), new Pixel(250, 125), zloty);
+//        b.drawTriangle(new Pixel(200, 140), new Pixel(250, 140), new Pixel(225, 110), zloty);
+        b.fillTriangle(new Pixel(200, 140), new Pixel(250, 140), zloty);
 
         // Bombki
         b.fillCircle(new Pixel(270, 235), 10,1, niebieski);
